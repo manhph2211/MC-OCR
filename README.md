@@ -15,3 +15,22 @@ Following these steps:
 - Binary Classifier (RepVGG,EfficientNetv2)
 - VietOCR
 - Key Extraction
+
+
+
+## Dataset 
+
+### Dataset for Semantic Segmentation
+
+- First, you need to download [data](https://drive.google.com/file/d/1Ma-vnGBXOMMVa1n4Oyd79mywAmx2MvCe/view?usp=sharing ) and put the [annotation file](https://drive.google.com/file/d/1NpV5h9ZfhfkV1c7SL1I6iAhSVHC596yM/view?usp=sharing) into folder `annotations` (which is in folder `./data/mcocr2021_public_train_test_data/mcocr_public_train_test_shared_data/mcocr_train_data`)
+
+- Then following these steps :
+
+
+```
+cd data && mkdir mask
+cd ../utils/
+python3 local_utils.py
+
+```
+

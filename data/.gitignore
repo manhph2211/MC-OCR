@@ -2,3 +2,4 @@ mcocr2021_private_test_data/
 mcocr2021_public_train_test_data/
 mc_ocr_warmup_500images/
 *.zip
+mask/

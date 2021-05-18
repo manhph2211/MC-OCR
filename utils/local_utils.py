@@ -1,15 +1,12 @@
 import pandas as pd
 import numpy as np
 from ast import literal_eval
-import json
 import os
 import cv2
 from pycocotools.coco import COCO
 from sklearn.model_selection import train_test_split
 import json
-from sklearn.metrics import jaccard_score
-import torch
-from torch.nn.functional import softmax
+import config
 
 
 def read_json(path):
@@ -45,7 +42,7 @@ def export_coco_format_data(annotation_path='./data/annotations/instances_defaul
                 image_mask = coco.annToMask(ann)
             else:
                 image_mask += coco.annToMask(ann)
-        print(image_mask.shape)
+        # print(image_mask.shape)
         image_mask[image_mask > 1] = 1
         filename = img_info[image_id]['file_name']
         name, _ = os.path.splitext(filename)
@@ -61,7 +58,7 @@ def export_coco_format_data(annotation_path='./data/annotations/instances_defaul
         json.dump(image_label_pairs, f)
 
 
-def split_data(all_data_json_path='./data/data.json', ratio=[0.8, 0.15, 0.05]):
+def split_data(all_data_json_path=config.export_data_path, ratio=[0.8, 0.15, 0.05]):
     with open(all_data_json_path, 'r') as f:
         data = json.load(f)
 
@@ -87,22 +84,16 @@ def split_data(all_data_json_path='./data/data.json', ratio=[0.8, 0.15, 0.05]):
         with open(save_path, 'w') as f:
             json.dump(data_dict, f)
 
-    save_data(train_image_paths, train_mask_paths, './data/train_data.json')
-    save_data(val_image_paths, val_mask_paths, './data/val_data.json')
-    save_data(test_image_paths, test_mask_paths, './data/test_data.json')
+    save_data(train_image_paths, train_mask_paths, config.export_data_train_path)
+    save_data(val_image_paths, val_mask_paths, config.export_data_val_path)
+    save_data(test_image_paths, test_mask_paths, config.export_data_test_path)
 
 
 
 
 
 if __name__=='__main__':
-    df = pd.read_csv('./data/mcocr2021_public_train_test_data/mcocr_public_train_test_shared_data/mcocr_train_data/mcocr_train_df.csv')
-    annos = df['anno_polygons'].head(5).to_list()
-    for anno in annos:
-        anno = literal_eval(anno)
-        for object in anno:
-            category_id = object['category_id']
-            print(category_id)
 
-
+	export_coco_format_data(config.annotation_path,config.image_folder,config.mask_folder,config.export_data_path)
+	split_data()
 
