@@ -1,12 +1,13 @@
-import pandas as pd
-import numpy as np
-from ast import literal_eval
 import os
 import cv2
 from pycocotools.coco import COCO
 from sklearn.model_selection import train_test_split
 import json
 import config
+import tqdm
+
+
+os.chdir('/home/doanphu/Documents/Code/Practice')
 
 
 def read_json(path):
@@ -35,7 +36,7 @@ def export_coco_format_data(annotation_path='./data/annotations/instances_defaul
 
     # save mask in for each image
     image_label_pairs = {}
-    for image_id, ann_list in groups.items():
+    for image_id, ann_list in tqdm.tqdm(groups.items()):
         image_mask = None
         for ann in ann_list:
             if image_mask is None:
@@ -43,7 +44,7 @@ def export_coco_format_data(annotation_path='./data/annotations/instances_defaul
             else:
                 image_mask += coco.annToMask(ann)
         # print(image_mask.shape)
-        image_mask[image_mask > 1] = 1
+        image_mask[image_mask >= 1] = 255
         filename = img_info[image_id]['file_name']
         name, _ = os.path.splitext(filename)
         mask_path = os.path.join(mask_folder, name + '.png')
@@ -89,11 +90,6 @@ def split_data(all_data_json_path=config.export_data_path, ratio=[0.8, 0.15, 0.0
     save_data(test_image_paths, test_mask_paths, config.export_data_test_path)
 
 
-
-
-
-if __name__=='__main__':
-
-	export_coco_format_data(config.annotation_path,config.image_folder,config.mask_folder,config.export_data_path)
-	split_data()
-
+if __name__ == '__main__':
+    export_coco_format_data(config.annotation_path, config.image_folder, config.mask_folder, config.export_data_path)
+    split_data()
