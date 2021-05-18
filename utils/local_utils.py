@@ -7,19 +7,16 @@ import config
 import tqdm
 
 
-os.chdir('/home/doanphu/Documents/Code/Practice')
-
-
 def read_json(path):
     with open(path, "r") as File:
         data = json.load(File)
         return data
 
 
-def export_coco_format_data(annotation_path='./data/annotations/instances_default.json',
-                            image_folder='./data/downloads/cats/',
-                            mask_folder='./data/mask/',
-                            export_data_path='./data/data.json'):
+def export_coco_format_data(annotation_path,
+                            image_folder,
+                            mask_folder,
+                            export_data_path):
     coco = COCO(annotation_path)
     anns_ids = coco.getAnnIds()
     anns = coco.loadAnns(anns_ids)

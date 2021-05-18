@@ -5,3 +5,7 @@ export_data_path = '../data/data.json'
 export_data_train_path = '../data/train.json'
 export_data_val_path = '../data/val.json'
 export_data_test_path = '../data/test.json'
+
+n_classes = 2
+# device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
+device = 'cpu'
