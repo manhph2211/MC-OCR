@@ -61,3 +61,4 @@ if __name__ == '__main__':
 	    lr_scheduler.step()
 	    # evaluate on the test dataset
 	    evaluate(model, val_data_loader, device=device)
+	    torch.save(model.state_dict(), config.model_save_path)

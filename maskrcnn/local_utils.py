@@ -28,7 +28,7 @@ def get_transform(train):
 def remove_background(img,mask):
 	img = np.asarray(img)
 	mask = np.asarray(mask)
-	return (img.transpose(2,0,1) * mask * 255).transpose(1,2,0)
+	return (img.transpose(2,0,1) * mask).transpose(1,2,0)
 
 
 if __name__ == '__main__':	
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 	plt.subplot(1,3,2)
 	plt.imshow(mask)
 	plt.subplot(1,3,3)
-	plt.imshow(removed_bg_img)
+	plt.imshow(removed_bg_img*255)
 	plt.show()
 
 
