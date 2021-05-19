@@ -1,0 +1,1 @@
+train_imgs_folder = 
