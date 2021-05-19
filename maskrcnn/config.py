@@ -19,4 +19,4 @@ n_classes = 2
 # device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 device = 'cpu'
 
-model_save_path = 'model.pth'
+model_save_path = './model.pth'
