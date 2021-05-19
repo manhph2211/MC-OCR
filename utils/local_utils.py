@@ -59,7 +59,7 @@ def export_coco_format_data(annotation_path='./data/annotations/instances_defaul
         json.dump(image_label_pairs, f)
 
 
-def split_data(all_data_json_path=config.export_data_path, ratio=[0.8, 0.15, 0.05]):
+def split_data(all_data_json_path=config.export_data_path, ratio=(0.8, 0.15, 0.05)):
     with open(all_data_json_path, 'r') as f:
         data = json.load(f)
 
