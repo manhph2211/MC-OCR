@@ -7,7 +7,7 @@ import config
 import tqdm
 
 
-os.chdir('/home/doanphu/Documents/Code/Practice')
+os.chdir('/home/doanphu/Documents/Code/Practice/RIVF2021-MC-OCR')
 
 
 def read_json(path):
