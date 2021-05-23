@@ -20,3 +20,5 @@ class FocalLoss(nn.Module):
         target_tensor = target_tensor.contiguous().view(-1, target_tensor.size(2))
 
         logpt = F.log_softmax(input)
+
+        return logpt
