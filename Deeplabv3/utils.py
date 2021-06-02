@@ -1,5 +1,4 @@
 import json
-
 import torch
 from torchvision.transforms import Normalize, ToTensor
 import cv2

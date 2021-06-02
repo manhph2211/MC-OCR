@@ -30,7 +30,7 @@ def evaluate(gt_annotation,
 
 
 if __name__ == '__main__':
-  evaluate(gt_annotation='data/coco_annotations/val.json',
-           checkpoint='weights/checkpoint18.pth',
-           mask_folder='mask_predict',
-           save_annotation_path='mask_predict/mask.json')
+    evaluate(gt_annotation='data/coco_annotations/val.json',
+             checkpoint='weights/checkpoint18.pth',
+             mask_folder='mask_predict',
+             save_annotation_path='mask_predict/mask.json')

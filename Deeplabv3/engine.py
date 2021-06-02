@@ -1,5 +1,4 @@
 import torch
-
 from model.deeplabv3 import DeeplabV3
 from dataset import ReceiptDataset
 from torch.utils.data import DataLoader
