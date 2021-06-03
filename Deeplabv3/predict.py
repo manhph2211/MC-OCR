@@ -3,6 +3,7 @@ import cv2
 from tqdm import tqdm
 import os
 import argparse
+import matplotlib.pyplot as plt
 
 
 from utils import image_transform
@@ -23,7 +24,7 @@ def inference(image_path, checkpoint):
     predict = predict.numpy().astype(float)
     predict = cv2.resize(predict, (original_size[1], original_size[0]))
 
-    return predict
+    plt.imshow(predict)
 
 
 def inference_folder(image_names, checkpoint, save_folder,
