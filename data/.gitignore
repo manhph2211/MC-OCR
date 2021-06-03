@@ -3,3 +3,5 @@ mcocr2021_public_train_test_data/
 mc_ocr_warmup_500images/
 *.zip
 mask/
+coco_annotations/
+*.json
