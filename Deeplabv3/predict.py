@@ -1,9 +1,12 @@
-from utils import image_transform
-from model.deeplabv3 import DeeplabV3
 import torch
 import cv2
 from tqdm import tqdm
 import os
+import argparse
+
+
+from utils import image_transform
+from model.deeplabv3 import DeeplabV3
 
 
 def inference(image_path, checkpoint):
@@ -46,5 +49,29 @@ def inference_folder(image_names, checkpoint, save_folder,
         cv2.imwrite(save_path, mask)
 
 
+def get_parser():
+    parser = argparse.ArgumentParser(
+        description='Prediction phase'
+    )
+
+    parser.add_argument(
+        '--image_path',
+        type=str,
+        default=None,
+        help='path to the image (default: None)'
+    )
+
+    parser.add_argument(
+        '--checkpoint',
+        type=str,
+        default=None,
+        help='path to the checkpoint (default: None)'
+    )
+
+    return parser.parse_args()
+
+
 if __name__ == '__main__':
-    pass
+    args = get_parser()
+    inference(args.image_path,
+              args.checkpoint)

@@ -1,12 +1,16 @@
 import torch
-from model.deeplabv3 import DeeplabV3
-from dataset import ReceiptDataset
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from torch.nn import CrossEntropyLoss, MSELoss
-from torch.optim import Adam
+from torch.optim import SGD
 from torch.cuda.amp import autocast, GradScaler
+from torch.optim.lr_scheduler import StepLR
 import os
+
+
+from model.deeplabv3 import DeeplabV3
+from dataset import ReceiptDataset
+from losses import FocalLoss
 
 
 def get_loader(image_size, batch_size, train_annotation='data/train.json', val_annotation='data/val.json'):
@@ -19,7 +23,7 @@ def get_loader(image_size, batch_size, train_annotation='data/train.json', val_a
     return train_loader, val_loader
 
 
-def train_net(image_size=312, num_epochs=30, batch_size=16, save_checkpoint='./weights',
+def train_net(image_size=312, num_epochs=30, batch_size=16, lr=1e-4, criterion='fl', save_checkpoint='./weights',
               load_checkpoint=None):
     train_loader, val_loader = get_loader(image_size=image_size, batch_size=batch_size)
 
@@ -31,9 +35,15 @@ def train_net(image_size=312, num_epochs=30, batch_size=16, save_checkpoint='./w
         model.load_state_dict(torch.load(load_checkpoint))
         print(f'Load checkpoint from: {load_checkpoint}')
 
-    criterion = CrossEntropyLoss(size_average=True).to(device)
-    # criterion = MSELoss()
-    optimizer = Adam(model.parameters(), lr=1e-4)
+    if criterion == 'ce':
+        criterion = CrossEntropyLoss(size_average=True).to(device)
+    if criterion == 'mse':
+        criterion = MSELoss()
+    if criterion == 'fl':
+        criterion = FocalLoss()
+
+    optimizer = SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=0)
+    scheduler = StepLR(optimizer=optimizer, step_size=10, gamma=0.1)
 
     train_losses = list()
     val_losses = list()
@@ -77,6 +87,8 @@ def train_net(image_size=312, num_epochs=30, batch_size=16, save_checkpoint='./w
                 os.makedirs(save_checkpoint)
             save_path = os.path.join(save_checkpoint, f'checkpoint{epoch+1}.pth')
             torch.save(model.state_dict(), save_path)
+
+        scheduler.step()
 
 
 if __name__ == '__main__':

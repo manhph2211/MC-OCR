@@ -1,0 +1,3 @@
+torchsummary==1.5.1
+torchvision==0.9.1
+tqdm==4.60.0
