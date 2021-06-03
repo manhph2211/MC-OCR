@@ -9,7 +9,7 @@ some solutions:
 - Objects in different scale: ASPP is a parallel network which uses astrous convolutions with multiple rates
   and incorporates them together.
 - Smooth a mask prediction: CRFs is a dense graph model which can maximize label agreement between similar pixels, and
-  can integrate more elaborate terms that model contextual relationships between object classes
+  can integrate more elaborate terms that model contextual relationships between object classes.
 
 ## Requirements
 ```bash
