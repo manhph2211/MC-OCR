@@ -3,28 +3,36 @@ import cv2
 from tqdm import tqdm
 import os
 import argparse
-import matplotlib.pyplot as plt
+from glob import glob
 
 
 from utils import image_transform
 from model.deeplabv3 import DeeplabV3
 
 
-def inference(image_path, checkpoint):
-    image = cv2.imread(image_path)
-    original_size = image.shape
-    image = image_transform(size=316, image=image)
+def inference(image_folder, checkpoint, save_folder):
+    for image_path in glob(image_folder):
+        image = cv2.imread(image_path)
+        original_size = image.shape
+        image = image_transform(size=316, image=image)
 
-    model = DeeplabV3(pretrained_backbone=False)
-    model.eval()
-    model.load_state_dict(torch.load(checkpoint))
-    predict = model(image.unsqueeze(0))[0]
+        model = DeeplabV3(pretrained_backbone=False)
+        model.eval()
+        model.load_state_dict(torch.load(checkpoint))
+        predict = model(image.unsqueeze(0))[0]
 
-    predict = torch.argmax(predict, dim=0)
-    predict = predict.numpy().astype(float)
-    predict = cv2.resize(predict, (original_size[1], original_size[0]))
+        predict = torch.argmax(predict, dim=0)
+        predict = predict.numpy().astype(float)
+        predict = cv2.resize(predict, (original_size[1], original_size[0]))
+        predict[predict > 0] = 1
 
-    plt.imshow(predict)
+        image = cv2.imread(image_path).float()
+        image[..., 0] *= image
+        image[..., 1] *= image
+        image[..., 2] *= image
+
+        save_path = os.path.join(save_folder, image_path.split('/')[-1])
+        cv2.imwrite(save_path, image)
 
 
 def inference_folder(image_names, checkpoint, save_folder,
@@ -56,10 +64,10 @@ def get_parser():
     )
 
     parser.add_argument(
-        '--image_path',
+        '--image_folder',
         type=str,
         default=None,
-        help='path to the image (default: None)'
+        help='path to the image folder (default: None)'
     )
 
     parser.add_argument(
@@ -69,10 +77,18 @@ def get_parser():
         help='path to the checkpoint (default: None)'
     )
 
+    parser.add_argument(
+        '--save_folder',
+        type=str,
+        default=None,
+        help='folder to save image (default: None)'
+    )
+
     return parser.parse_args()
 
 
 if __name__ == '__main__':
     args = get_parser()
-    inference(args.image_path,
-              args.checkpoint)
+    inference(args.image_folder,
+              args.checkpoint,
+              args.save_folder)

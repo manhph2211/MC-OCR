@@ -50,14 +50,17 @@ optional arguments:
 ```bash
 $ python predict.py --help
 
-usage: predict.py [-h] [--image_path IMAGE_PATH] [--checkpoint CHECKPOINT]
+usage: predict.py [-h] [--image_folder IMAGE_FOLDER] [--checkpoint CHECKPOINT]
+                  [--save_folder SAVE_FOLDER]
 
 Prediction phase
 
 optional arguments:
   -h, --help            show this help message and exit
-  --image_path IMAGE_PATH
-                        path to the image (default: None)
+  --image_folder IMAGE_FOLDER
+                        path to the image folder (default: None)
   --checkpoint CHECKPOINT
                         path to the checkpoint (default: None)
+  --save_folder SAVE_FOLDER
+                        folder to save image (default: None)
 ```
