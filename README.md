@@ -27,7 +27,6 @@ Following these steps:
 
 - Then following these steps :
 
-
 ```
 cd data && mkdir mask
 cd ../utils/
