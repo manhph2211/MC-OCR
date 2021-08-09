@@ -4,16 +4,16 @@ The text recognition of Vietnamese receipts. The competition task aims at extrac
 ## Pipeline
 Following these steps:
 
-- Anno label(cvat)
-- Semantic(FPN, Mask RCNN, Yolact)
-- Crop Receipt from original Image 
-- Detect texts(DB,CRAFT)
-- Rotate angle
-- Binary Labels up, down (cvat)
-- Handling imbalanced dataset
-- Binary Classifier (EfficientNetv2)
-- VietOCR/ AttOCR
-- Key Extraction
+- [x] Anno label(cvat)
+- [x] Semantic(FPN, Mask RCNN, Yolact)
+- [x] Crop Receipt from original Image 
+- [x] Detect texts(DB,CRAFT)
+- [ ] Rotate angle
+- [ ] Binary Labels up, down (cvat)
+- [ ] Handling imbalanced dataset
+- [ ] Binary Classifier (EfficientNetv2)
+- [ ] VietOCR/ AttOCR
+- [ ] Key Extraction
 
 ## Dataset 
 
