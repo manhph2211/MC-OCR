@@ -8,7 +8,7 @@ Following these steps:
 - [x] Semantic(FPN, Mask RCNN, Yolact)
 - [x] Crop Receipt from original Image 
 - [x] Detect texts(DB,CRAFT)
-- [ ] Rotate angle
+- [x] Rotate angle
 - [ ] Binary Labels up, down (cvat)
 - [ ] Handling imbalanced dataset
 - [ ] Binary Classifier (EfficientNetv2)
