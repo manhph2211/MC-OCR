@@ -9,7 +9,7 @@ Following these steps:
 - [x] Crop Receipt from original Image 
 - [x] Detect texts(DB,CRAFT)
 - [x] Rotate angle
-- [ ] Binary Labels up, down (cvat)
+- [x] Binary Labels up, down (cvat)
 - [ ] Handling imbalanced dataset
 - [ ] Binary Classifier (EfficientNetv2)
 - [ ] VietOCR/ AttOCR
