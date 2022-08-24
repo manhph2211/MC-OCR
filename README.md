@@ -9,13 +9,13 @@ Following these steps:
 
 - [x] Anno label(cvat)
 - [x] Semantic(FPN, Mask RCNN, Yolact)
-- [x] Crop Receipt from original Image 
-- [x] Detect texts(DB,CRAFT)
-- [x] Rotate angle - Alignment
-- [x] Binary Labels up, down (cvat)
-- [ ] Handling imbalanced dataset & Binary Classifier (EfficientNetv2)
-- [ ] Text Recognition - VietOCR/ AttOCR
+- [x] Remove background 
+- [ ] Rotate angle - Alignment / Perspective Transform
+- [ ] Handle imbalanced dataset & Binary Classifier - EfficientNetv2 
+- [ ] Text detection - DB/CRAFT 
+- [ ] Text Recognition - VietOCR/AttOCR
 - [ ] Key Infomation Extraction - GraphSage
+- [ ] Web deployment/ Flask 
 
 ## Dataset 
 
