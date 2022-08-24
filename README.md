@@ -2,18 +2,20 @@
 The text recognition of Vietnamese receipts. The competition task aims at extracting required fields in Vietnamese receipts captured by mobile devices :smile:
 
 ## Pipeline
+
+![image](https://user-images.githubusercontent.com/61444616/186398778-8d0019a7-3f9c-484d-a2da-6032ff1c8457.png)
+
 Following these steps:
 
 - [x] Anno label(cvat)
 - [x] Semantic(FPN, Mask RCNN, Yolact)
 - [x] Crop Receipt from original Image 
 - [x] Detect texts(DB,CRAFT)
-- [x] Rotate angle
+- [x] Rotate angle - Alignment
 - [x] Binary Labels up, down (cvat)
-- [ ] Handling imbalanced dataset
-- [ ] Binary Classifier (EfficientNetv2)
-- [ ] VietOCR/ AttOCR
-- [ ] Key Extraction
+- [ ] Handling imbalanced dataset & Binary Classifier (EfficientNetv2)
+- [ ] Text Recognition - VietOCR/ AttOCR
+- [ ] Key Infomation Extraction - GraphSage
 
 ## Dataset 
 
