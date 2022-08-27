@@ -28,7 +28,9 @@ def get_transform(train):
 def remove_background(img,mask):
 	img = np.asarray(img)
 	mask = np.asarray(mask)
-	return (img.transpose(2,0,1) * mask).transpose(1,2,0)
+	new_img = img.transpose(2,0,1) * mask
+	new_img = np.transpose(new_img,(1,2,0))
+	return new_img
 
 
 if __name__ == '__main__':	

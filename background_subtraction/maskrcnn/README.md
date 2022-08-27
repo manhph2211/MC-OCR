@@ -9,7 +9,7 @@ MaskRCNN for Removing Background of Original Image
 
 # Saving Image after Removing Background
 
-- First downloading [model](https://drive.google.com/file/d/1wYjxfS3PWyX8gKyN5Yg33YAzUycZeBJB/view?usp=sharing) and put it into `./maskrcnn/`
+- First downloading [model](None) and put it into `./maskrcnn/`
 
 
 - Following these steps:
