@@ -1,6 +1,7 @@
 mcocr2021_private_test_data/
 mcocr2021_public_train_test_data/
 mc_ocr_warmup_500images/
+mcocr_public_train_test_shared_data/
 *.zip
 mask/
 coco_annotations/

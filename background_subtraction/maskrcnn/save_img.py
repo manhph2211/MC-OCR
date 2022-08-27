@@ -3,6 +3,9 @@ import config
 import glob
 import os
 from local_utils import remove_background
+import cv2
+import tqdm 
+import torch 
 
 
 def remove_background_dataset(original_folder,save_folder):
@@ -24,7 +27,7 @@ def remove_background_dataset(original_folder,save_folder):
 if __name__ == '__main__':
 	model = get_instance_segmentation_model(num_classes=config.n_classes)
 	model.to(config.device)
-	model.load_state_dict(torch.load(config.model_save_path))
+	model.load_state_dict(torch.load(config.model_save_path, map_location = config.device))
 	model.eval()
 
 	remove_background_dataset(config.train_imgs,config.save_train_img)

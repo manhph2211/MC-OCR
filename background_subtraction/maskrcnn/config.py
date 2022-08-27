@@ -8,8 +8,8 @@ export_data_test_path = '../../data/test.json'
 
 #-------------------------------------------------
 
-val_imgs = '../../data/mcocr2021_public_train_test_data/mcocr_public_train_test_shared_data/mcocr_val_data/val_images'
-train_imgs = '../../data/mcocr2021_public_train_test_data/mcocr_public_train_test_shared_data/mcocr_train_data/train_images'
+val_imgs = '../../data/mcocr_public_train_test_shared_data/mcocr_val_data/val_images'
+train_imgs = '../../data/mcocr_public_train_test_shared_data/mcocr_train_data/train_images'
 save_train_img = '../../data/train_images_after_semantic'
 save_val_img = '../../data/val_images_after_semantic'
 
@@ -19,4 +19,4 @@ n_classes = 2
 # device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 device = 'cpu'
 
-model_save_path = './model.pth'
+model_save_path = './ckpts/model.pth'
