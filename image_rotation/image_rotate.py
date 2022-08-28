@@ -48,13 +48,13 @@ def convert(image_path):
 
 
 if __name__ == "__main__":
-    save_path = '/content/drive/MyDrive/RIVF2021-MC-OCR/data/after_rotated_train'
+    save_path = '../data/after_rotated_train'
     if not os.path.isdir(save_path):
         os.mkdir(save_path)
 
-    for image_path in tqdm(glob.glob('/content/drive/MyDrive/RIVF2021-MC-OCR/data/text_detection_dataset/*.jpg')):
+    for image_path in tqdm(glob.glob('../data/text_detection_results/*.jpg')):
         box_path = convert(image_path)
 
         rotated_image = rotate_image(image_path, box_path)
-        new_image_path = image_path.replace('text_detection_dataset', 'after_rotated_train')
+        new_image_path = image_path.replace('text_detection_results', 'after_rotated_train')
         cv2.imwrite(new_image_path, rotated_image)
