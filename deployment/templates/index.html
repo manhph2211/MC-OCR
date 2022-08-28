@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <link rel="stylesheet" media="all" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link href="static/css/style.css" rel="stylesheet" id="style-css">
+</head>
+
+<body>
+    <div class="content">
+        <div class="tab-content">
+            <div id="STT" class="container tab-pane active">
+                <form method="post" enctype="multipart/form-data" id="ocr_form">
+                    <div class="form-group">
+                        <label>Select image</label>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <span class="btn btn-primary btn-file">
+                                    Browse… <input type="file" id="imgInp" name="file">
+                                </span>
+                            </span>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InputUsername">Result</label>
+                        <textarea class="form-control" name="result" id="result"></textarea>
+                        <small id="transcriptHelp" class="form-text text-muted"></small>
+                    </div>
+                    <button type="button" id="ocr" class="btn btn-primary">Run</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="static/js/form-scripts.js"></script>
+
+</html>
