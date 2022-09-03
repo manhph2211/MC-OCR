@@ -10,12 +10,12 @@ Following these steps:
 - [x] Anno label(cvat)
 - [x] Semantic(FPN, Mask RCNN, Yolact)
 - [x] Remove background 
-- [ ] Rotate angle - Alignment / Perspective Transform
-- [ ] Handle imbalanced dataset & Binary Classifier - EfficientNetv2 
-- [ ] Text detection - DB/CRAFT 
-- [ ] Text Recognition - VietOCR/AttOCR
+- [x] Rotate angle - Alignment / Perspective Transform
+- [x] Handle imbalanced dataset & Binary Classifier - EfficientNetv2 
+- [x] Text detection - DB/CRAFT 
+- [x] Text Recognition - VietOCR
 - [ ] Key Infomation Extraction - GraphSage
-- [ ] Web deployment/ Flask 
+- [x] Web deployment 
 
 ## Dataset 
 
