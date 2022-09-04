@@ -14,7 +14,7 @@ Following these steps:
 - [x] Handle imbalanced dataset & Binary Classifier - EfficientNetv2 
 - [x] Text detection - DB/CRAFT 
 - [x] Text Recognition - VietOCR
-- [ ] Key Infomation Extraction - GraphSage
+- [x] Key Infomation Extraction - GraphSage
 - [x] Web deployment 
 
 ## Dataset 
