@@ -28,13 +28,3 @@ def noise_removal(image):
     dst = cv2.fastNlMeansDenoising(img, None, 20,7,21) 
     return Image.fromarray(dst)
 
-
-a = adaptive_threshold_gaussian(path)
-print(type(a))
-plt.subplot(1,2,1)
-plt.imshow(a, cmap='gray')
-b = noise_removal(adaptive_threshold_gaussian(path))
-print(type(b))
-plt.subplot(1,2,2)
-plt.imshow(b, cmap='gray')
-plt.show()
