@@ -7,6 +7,7 @@ from yaml import Loader
 import matplotlib.pyplot as plt
 import json
 import os
+from preprocessing import adaptive_threshold_gaussian, noise_removal
 
 config = Cfg.load_config_from_name('vgg_transformer')
 config['weights'] = '/home/daitama/Desktop/VietOCR/vietocr/transformerocr.pth'
@@ -24,7 +25,8 @@ with open('data.json') as data_file:
         n_boxes = len(file)
         # Path to image
         path_to_image = os.path.join(path_to_image_folder, image_dir)
-        img = Image.open(path_to_image)
+        # Preprocess the image
+        img = noise_removal(adaptive_threshold_gaussian(path_to_image))
 
         # Loop through the boxes:
         for box in range(n_boxes):

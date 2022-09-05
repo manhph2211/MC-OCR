@@ -4,7 +4,7 @@ pyyaml
 torch
 torchvision
 pillow
-opencv-python
+# opencv-python
 einops==0.2.0
 gdown==4.4.0
 prefetch_generator==1.0.1
