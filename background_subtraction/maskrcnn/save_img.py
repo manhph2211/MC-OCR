@@ -31,12 +31,11 @@ def remove_background_dataset(original_folder,save_folder):
       _ = remove_background_one_image(img_path,save_folder)
 
 
-if __name__ == '__main__':
-	model = get_instance_segmentation_model(num_classes=config.n_classes)
-	model.to(config.device)
-	model.load_state_dict(torch.load(config.model_save_path, map_location = config.device))
-	model.eval()
+model = get_instance_segmentation_model(num_classes=config.n_classes)
+model.to(config.device)
+model.load_state_dict(torch.load(config.model_save_path, map_location = config.device))
+model.eval()
 
-	remove_background_dataset(config.train_imgs,config.save_train_img)
-	remove_background_dataset(config.val_imgs,config.save_val_img)
+remove_background_dataset(config.train_imgs,config.save_train_img)
+remove_background_dataset(config.val_imgs,config.save_val_img)
 

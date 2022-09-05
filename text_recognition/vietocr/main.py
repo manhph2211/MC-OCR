@@ -2,9 +2,6 @@ from re import S
 from vietocr.tool.config import Cfg
 from vietocr.tool.predictor import Predictor
 from PIL import Image
-import yaml
-from yaml import Loader
-import matplotlib.pyplot as plt
 import json
 import os
 
