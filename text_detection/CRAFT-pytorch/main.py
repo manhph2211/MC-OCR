@@ -6,6 +6,7 @@ MIT License
 # -*- coding: utf-8 -*-
 import sys
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 import time
 import argparse
 
@@ -18,7 +19,6 @@ import os
 import json
 from collections import defaultdict
 import cv2
-from skimage import io
 import numpy as np
 import craft_utils
 import imgproc
@@ -47,7 +47,7 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, r
     t0 = time.time()
 
     # resize
-    img_resized, target_ratio, size_heatmap = imgproc.resize_aspect_ratio(image, canvas_size=1280, interpolation=cv2.INTER_LINEAR, mag_ratio=1.5)
+    img_resized, target_ratio, size_heatmap = imgproc.resize_aspect_ratio(image, square_size=1280, interpolation=cv2.INTER_LINEAR, mag_ratio=1.5)
     ratio_h = ratio_w = 1 / target_ratio
 
     # preprocessing
@@ -89,7 +89,7 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, r
 #==================================================================================
 # load net
 net = CRAFT()     # initialize
-net.load_state_dict(copyStateDict(torch.load("weights/craft_mlt_25k.pth", map_location='cpu')))
+net.load_state_dict(copyStateDict(torch.load("ckpts/craft_mlt_25k.pth", map_location='cpu')))
 net.eval()
 
 
@@ -141,9 +141,9 @@ def detect(img_path):
 
     tmp = defaultdict(list)
     if True:
-        file_txt = os.path.join(img_path.replace(".jpg",""),"_text_detection.txt")
+        file_txt = os.path.join("../../data/demo/text_detection/res_"+img_path.replace(".jpg",".txt").split("/")[-1])
         
-        keys_image = "_".join(file_txt.split('_')[:3])
+        # keys_image = "_".join(file_txt.split('_')[:3])
         path_file_txt = file_txt#os.path.join(path_file,file_txt)
 
         with open(path_file_txt, 'r') as f:
@@ -153,10 +153,10 @@ def detect(img_path):
                 y = data[1::2]
                 pt1 = [max(x), max(y)]
                 pt2 = [min(x), min(y)]
-                tmp[keys_image].append({'crop': [pt1, pt2], 'text': ""})
+                tmp[img_path].append({'crop': [pt1, pt2], 'text': ""})
             
     tmp = dict(tmp)
-    json.dump(tmp, open('../../data/demo/text_detect/data.json', 'w', encoding='utf8'), indent=4, ensure_ascii=False)
+    json.dump(tmp, open('C:\\Users\\manhph5\\Desktop\\RIVF2021-MC-OCR\\data\\demo\\text_detection\\data.json', 'w', encoding='utf8'), indent=4, ensure_ascii=False)
 
-detect("C:\\Users\\baoan\\Downloads\\mcocr_public_145013eyjmn.jpg")
+detect("../../data/val_images_after_semantic/mcocr_val_145114anqqj.jpg")
 
