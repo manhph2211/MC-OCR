@@ -27,7 +27,7 @@ class Receipt(Dataset):
     def connect(self, bboxes, imgw, imgh):
         G = nx.Graph()
         for src_idx, src_row in enumerate(bboxes):
-            if not src_row['label']:
+            if not src_row.get('label', False):
                 src_row['label'] = "OTHER"
             src_row['y'] = torch.tensor([LABEL2ID[src_row['label']]], dtype=torch.long)
             src_row["x_max"], src_row["y_max"], src_row["x_min"], src_row["y_min"] = src_row["crop"][0][0], src_row["crop"][0][1], src_row["crop"][1][0], src_row["crop"][1][1]
