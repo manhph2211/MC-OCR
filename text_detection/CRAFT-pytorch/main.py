@@ -141,7 +141,7 @@ def detect(img_path):
 
     tmp = defaultdict(list)
     if True:
-        file_txt = os.path.join("../../data/demo/text_detection/res_"+img_path.replace(".jpg",".txt").split("/")[-1])
+        file_txt = os.path.join("../../data/demo/text_detection/"+img_path.replace(".jpg",".txt").split("/")[-1])
         
         # keys_image = "_".join(file_txt.split('_')[:3])
         path_file_txt = file_txt#os.path.join(path_file,file_txt)
@@ -158,5 +158,7 @@ def detect(img_path):
     tmp = dict(tmp)
     json.dump(tmp, open('C:\\Users\\manhph5\\Desktop\\RIVF2021-MC-OCR\\data\\demo\\text_detection\\data.json', 'w', encoding='utf8'), indent=4, ensure_ascii=False)
 
-detect("../../data/val_images_after_semantic/mcocr_val_145114anqqj.jpg")
+
+if __name__ == "__main__":
+    detect("../../data/demo/bg_sub/mcocr_val_145114aszbc.jpg")
 
