@@ -43,7 +43,6 @@ def convert(image_path):
     box_path[-2] = 'text_detection_results'
     box_path[-1] = 'res_' + box_path[-1][:-4] + '.txt' 
     box_path = '/'.join(box_path)
-
     return box_path
 
 
