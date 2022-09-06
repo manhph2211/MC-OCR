@@ -5,6 +5,5 @@ mcocr_public_train_test_shared_data/
 *.zip
 mask/
 coco_annotations/
-*.json
 train_*/
 val_*/
