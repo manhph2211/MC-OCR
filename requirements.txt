@@ -17,12 +17,12 @@ click==8.0.4
 colorama==0.4.5
 commonmark==0.9.1
 contextlib2==21.6.0
-contextvars==2.4
-cycler==0.11.0
-Cython==0.29.32
-dataclasses==0.8
-decorator==4.4.2
-defusedxml==0.7.1
+# contextvars==2.4
+# cycler==0.11.0
+# Cython
+# dataclasses==0.8
+# decorator==4.4.2
+# defusedxml==0.7.1
 einops==0.4.1
 entrypoints==0.4
 fastapi==0.82.0
@@ -73,7 +73,7 @@ prometheus-client==0.14.1
 prompt-toolkit==3.0.31
 protobuf==3.19.4
 pyarrow==6.0.1
-pycocotools-windows==2.0.0.2
+pycocotools
 pycparser==2.21
 pydantic==1.9.2
 pydeck==0.6.2
@@ -86,46 +86,16 @@ python-dateutil==2.8.2
 pytz==2022.2.1
 pytz-deprecation-shim==0.1.0.post0
 PyWavelets==1.1.1
-pywin32==304
-pywinpty==1.1.6
+# pywin32==304
+# pywinpty==1.1.6
 PyYAML==6.0
-pyzmq==23.2.1
-rdflib==5.0.0
 requests==2.27.1
-rich==12.5.1
 scikit-image==0.17.2
 scikit-learn==0.24.2
 scipy==1.5.4
-semver==2.13.0
-Send2Trash==1.8.0
-Shapely==1.8.4
-six==1.16.0
-smmap==5.0.0
-sniffio==1.2.0
-soupsieve==2.3.2.post1
-starlette==0.19.1
 streamlit==1.10.0
-terminado==0.12.1
-testpath==0.6.0
-threadpoolctl==3.1.0
-tifffile==2020.9.3
-toml==0.10.2
-toolz==0.12.0
 torch==1.10.2
 torch-geometric==2.0.3
 torchvision==0.11.3
-tornado==6.1
 tqdm==4.64.0
-traitlets==4.3.3
-typing_extensions==4.1.1
-tzdata==2022.2
-tzlocal==4.2
-urllib3==1.26.12
-validators==0.20.0
-watchdog==2.1.9
-wcwidth==0.2.5
-webencodings==0.5.1
-widgetsnbextension==3.6.1
-wincertstore==0.2
-yacs==0.1.8
-zipp==3.6.0
+
