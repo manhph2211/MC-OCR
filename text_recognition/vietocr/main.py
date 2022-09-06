@@ -41,5 +41,5 @@ with open('data.json') as data_file:
             file[box]['text'] = str(prediction)
 
 with open('prediction.json', 'w') as fp:
-    json.dump(data, fp)
+    json.dump(data, fp, indent=2)
 
