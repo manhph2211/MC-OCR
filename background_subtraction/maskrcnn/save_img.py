@@ -1,6 +1,3 @@
-import sys
-sys.path.append("../../")
-
 from background_subtraction.maskrcnn.model import get_instance_segmentation_model
 from background_subtraction.maskrcnn import config
 import glob
@@ -58,7 +55,6 @@ def convert(image_path, save_folder = "data/demo/text_detection"):
 def remove_bg(img_path, save_folder="data/demo/text_detection"):
   if type(img_path) == str:
     img = cv2.imread(img_path)
-  # else:
     img = torch.tensor(img)
     img = img.permute(2,0,1) / 255
     name = img_path.split('/')[-1]
@@ -86,7 +82,7 @@ def remove_background_dataset(original_folder,save_folder):
 
 mask_model = get_instance_segmentation_model(num_classes=config.n_classes)
 mask_model.to(config.device)
-mask_model.load_state_dict(torch.load(config.model_save_path, map_location = config.device))
+mask_model.load_state_dict(torch.load("background_subtraction/maskrcnn/ckpts/model.pth", map_location = config.device))
 mask_model.eval()
 
 # remove_background_dataset(config.train_imgs,config.save_train_img)

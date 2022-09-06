@@ -13,7 +13,6 @@ import argparse
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
-
 from PIL import Image
 import os
 import json
