@@ -1,4 +1,3 @@
-import os
 import json
 import torch
 import cv2
@@ -39,15 +38,14 @@ def get_key(json_path):
         json.dump(json_data, f)
 
 
-def visualize(image_folder, json_path, save_path):
+def visualize(json_path):
     with open(json_path, 'r') as f:
         data = json.load(f)
 
-    image_name = list(data.keys())[0] + '.jpg'
-    image_path = os.path.join(image_folder, image_name)
+    image_path = list(data.keys())[0] 
 
     image = cv2.imread(image_path)
-    for box in data[image_name.split('.')[0]]:
+    for box in data[image_path]:
         if box['label'] == 'OTHER':
             continue
         image = cv2.rectangle(image, (box['crop'][1][0], box['crop'][1][1]),
@@ -55,10 +53,10 @@ def visualize(image_folder, json_path, save_path):
         image = cv2.putText(image, box['text'] + ':' + box['label'], (box['crop'][1][0], box['crop'][1][1]), cv2.FONT_HERSHEY_SIMPLEX,
                             0.4, (255, 0, 0), 1, cv2.LINE_AA)
               
-    cv2.imwrite(save_path, image)
+    cv2.imwrite("data/demo/kie/result.jpg", image)
+    cv2.imshow(image,"Result")
 
 
 if __name__ == '__main__':
-    get_key('../tests/demo.json')
-    visualize('../tests', '../tests/demo.json', '../tests/test.jpg')
-    pass
+    get_key('data/demo/text_recognition/data.json')
+    visualize('data/demo/text_recognition/data.json')
