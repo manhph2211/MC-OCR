@@ -21,7 +21,7 @@ def recoginize(path_to_json_file = 'data/demo/text_detection/data.json'):
         n_boxes = len(file)
 
         # Preprocess the image
-        img = noise_removal(adaptive_threshold_gaussian(path_to_image[3:]))
+        img = noise_removal(adaptive_threshold_gaussian(path_to_image))
 
         # Loop through the boxes:
         for box in range(n_boxes):
@@ -41,7 +41,7 @@ def recoginize(path_to_json_file = 'data/demo/text_detection/data.json'):
             data[image_dir][box]['text'] = str(prediction)
 
 
-    with open('C:\\Users\\manhph5\\Desktop\\RIVF2021-MC-OCR\\data\\demo\\text_recognition\\data.json', 'w') as fp:
+    with open('data/demo/text_recognition/data.json', 'w') as fp:
         json.dump(data, fp, indent=2)
 
 if __name__ == "__main__":

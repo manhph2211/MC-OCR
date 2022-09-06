@@ -6,11 +6,12 @@ from key_info_extraction.tools.inference import get_key
 
 def main():
     original_img_path = "data/demo/original/mcocr_val_145114aszbc.jpg"
-    remove_background_one_image(original_img_path)
-    detect(original_img_path.replace("original","bg_sub"))
-    remove_background_one_image(original_img_path.replace("original","bg_sub"))
-    recoginize("data/demo/text_detection/data.json")
-    get_key("data/demo/text_recognition/data.json")
+    # remove_background_one_image(original_img_path)
+    # detect(original_img_path.replace("original","bg_sub"))
+    # remove_background_one_image(original_img_path.replace("original","bg_sub"))
+    # detect(original_img_path.replace("original","rotation"))
+    # recoginize("data/demo/text_detection/data.json")
+    # get_key("data/demo/text_recognition/data.json")
 
 
 if __name__ == "__main__":
