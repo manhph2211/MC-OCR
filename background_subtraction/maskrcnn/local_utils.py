@@ -1,10 +1,10 @@
-import config
+from background_subtraction.maskrcnn import config
 from PIL import Image
 import json
 import matplotlib.pyplot as plt 
-from engine import train_one_epoch, evaluate
-import utils
-import transforms as T
+from background_subtraction.maskrcnn.engine import train_one_epoch, evaluate
+from background_subtraction.maskrcnn import utils
+import background_subtraction.maskrcnn.transforms as T
 import numpy as np 
 
 

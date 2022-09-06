@@ -1,8 +1,8 @@
-from model import get_instance_segmentation_model
-import config
+from background_subtraction.maskrcnn.model import get_instance_segmentation_model
+from background_subtraction.maskrcnn import config
 import glob
 import os
-from local_utils import remove_background
+from background_subtraction.maskrcnn.local_utils import remove_background
 import cv2
 from tqdm import tqdm 
 import torch 
@@ -12,7 +12,6 @@ import cv2
 import glob
 import os
 from tqdm import tqdm
-import sys
 
 
 def rotate_image(image_path, boxes_path):
@@ -64,7 +63,7 @@ def remove_background_one_image(img_path, save_folder="../../data/demo/text_dete
       box_path = convert(img_path)
       print(box_path)
       if not os.path.isfile(box_path):
-        prediction = model([img.to(config.device)])
+        prediction = mask_model([img.to(config.device)])
         img = img.permute(1,2,0)
         prediction = prediction[-1]['masks'][0][0].cpu()
         remove_bg_img = remove_background(img,prediction) * 255
@@ -83,10 +82,10 @@ def remove_background_dataset(original_folder,save_folder):
       _ = remove_background_one_image(img_path,save_folder)
 
 
-model = get_instance_segmentation_model(num_classes=config.n_classes)
-model.to(config.device)
-model.load_state_dict(torch.load(config.model_save_path, map_location = config.device))
-model.eval()
+mask_model = get_instance_segmentation_model(num_classes=config.n_classes)
+mask_model.to(config.device)
+mask_model.load_state_dict(torch.load(config.model_save_path, map_location = config.device))
+mask_model.eval()
 
 # remove_background_dataset(config.train_imgs,config.save_train_img)
 # remove_background_dataset(config.val_imgs,config.save_val_img)

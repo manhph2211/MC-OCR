@@ -1,11 +1,7 @@
 import os
 import json
 import torch
-from torch_geometric.loader import DataLoader
 import cv2
-
-import sys
-sys.path.append('/content/drive/MyDrive/RIVF2021-MC-OCR')
 from key_info_extraction.models.phobert_sage import SageNet
 from key_info_extraction.datasets import Receipt
 from key_info_extraction.models.phobert_gcn import BERTxGCN
@@ -27,7 +23,7 @@ def decode(i):
     return LABEL2ID[i]
 
 
-def inference(json_path):
+def get_key(json_path):
     with open(json_path, 'r') as f:
         json_data = json.load(f)
     dataset = Receipt(json_file=json_path)
@@ -63,6 +59,6 @@ def visualize(image_folder, json_path, save_path):
 
 
 if __name__ == '__main__':
-    inference('../tests/demo.json')
+    get_key('../tests/demo.json')
     visualize('../tests', '../tests/demo.json', '../tests/test.jpg')
     pass

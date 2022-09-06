@@ -20,10 +20,10 @@ import json
 from collections import defaultdict
 import cv2
 import numpy as np
-import craft_utils
-import imgproc
-import file_utils
-from craft import CRAFT
+from text_detection.craft import craft_utils
+from text_detection.craft import imgproc
+from text_detection.craft import file_utils
+from text_detection.craft.craft import CRAFT
 
 
 from collections import OrderedDict
@@ -89,7 +89,7 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, r
 #==================================================================================
 # load net
 net = CRAFT()     # initialize
-net.load_state_dict(copyStateDict(torch.load("ckpts/craft_mlt_25k.pth", map_location='cpu')))
+net.load_state_dict(copyStateDict(torch.load("text_detection/craft/ckpts/craft_mlt_25k.pth", map_location='cpu')))
 net.eval()
 
 
