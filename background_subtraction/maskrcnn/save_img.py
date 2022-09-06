@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../../")
+
 from background_subtraction.maskrcnn.model import get_instance_segmentation_model
 from background_subtraction.maskrcnn import config
 import glob
@@ -52,7 +55,7 @@ def convert(image_path, save_folder = "data/demo/text_detection"):
     return box_path
 
 
-def remove_background_one_image(img_path, save_folder="data/demo/text_detection"):
+def remove_bg(img_path, save_folder="data/demo/text_detection"):
   if type(img_path) == str:
     img = cv2.imread(img_path)
   # else:
@@ -78,7 +81,7 @@ def remove_background_one_image(img_path, save_folder="data/demo/text_detection"
 def remove_background_dataset(original_folder,save_folder):
   img_paths = glob.glob(os.path.join(original_folder,'*.jpg'))
   for img_path in tqdm(img_paths):
-      _ = remove_background_one_image(img_path,save_folder)
+      _ = remove_bg(img_path,save_folder)
 
 
 mask_model = get_instance_segmentation_model(num_classes=config.n_classes)
@@ -89,5 +92,5 @@ mask_model.eval()
 # remove_background_dataset(config.train_imgs,config.save_train_img)
 # remove_background_dataset(config.val_imgs,config.save_val_img)
 if __name__ == "__main__":
-  # remove_background_one_image("../../data/mcocr_public_train_test_shared_data/mcocr_val_data/val_images/mcocr_val_145114aszbc.jpg")
-  remove_background_one_image("data/demo/bg_sub/mcocr_val_145114aszbc.jpg")
+  # remove_bg("../../data/mcocr_public_train_test_shared_data/mcocr_val_data/val_images/mcocr_val_145114aszbc.jpg")
+  remove_bg("data/demo/bg_sub/mcocr_val_145114aszbc.jpg")

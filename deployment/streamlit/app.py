@@ -1,47 +1,65 @@
-import streamlit as st
-import numpy as np
-from PIL import Image
-import requests
-import base64
+import os
+from os import environ as env
+from tempfile import TemporaryDirectory
+from typing import Dict, List
+
 import cv2
+import numpy as np
+import pandas as pd
+import requests
 
-max_width_str = f"max-width: 1200px;"
-st.markdown(
-    f"""
-    <style>
-    .reportview-container .main .block-container{{
-        {max_width_str}
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+import streamlit as st
+import sys
+sys.path.append("../../")
+from background_subtraction.maskrcnn.save_img import remove_bg 
+from text_detection.craft.main import detect   
+from text_recognition.main import recoginize
+# from key_info_extraction.tools.inference import get_key
 
-st.markdown(
-    "<h1 style='text-align: center;'>Image Text Recognition Tool</h1>",
-    unsafe_allow_html=True,
-)
-st.markdown(
-    "<p style='text-align:center;'>Hanoi, 2021 by Sun Asterisk AI Team</p>",
-    unsafe_allow_html=True,
-)
 
-st.markdown(
-    """
-            * Click the button to upload a image file.
-            * Wait for running
-"""
-)
+st.set_page_config(layout="wide", page_icon="🖱️", page_title="Interactive table app")
+st.title("👨‍💻 Invoice Key Information Extraction")
 
-ip_addr = "192.168.1.187"
-url = "http://" + ip_addr + ":8085/predictions/ocr_model"
-uploaded_file = st.file_uploader("Upload Image", type=[".png", ".jpg", ".jpeg"])
-if uploaded_file is not None:
-    image = np.asarray(Image.open(uploaded_file))
-    img_str = cv2.imencode('.jpg', image)[1].tostring()  
-    b64_code = base64.b64encode(img_str) 
-    response = requests.post(url, files={'body': b64_code})
 
-    st.image(image)
-    if response.status_code == 200:
-        st.markdown('***Predicted result***: {}'.format(response.text))
+def app():
+    upload_file = st.file_uploader(label="Pick a file", type=["png", "jpg", "jpeg"])
+    print(upload_file)
+    image = None
+    if upload_file is not None:
+        filename = upload_file.name
+        filetype = upload_file.type
+        filebyte = bytearray(upload_file.read())
+
+        # cvt byte to image
+        image = np.asarray(filebyte, dtype=np.uint8)
+        image = cv2.imdecode(image, 1)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+        with st.spinner("🤖 Removing background... "):
+            remove_bg(image)
+            
+        with st.spinner("🤖 Detecting angle... "):
+            detect(upload_file.replace("original","bg_sub"))
+
+        with st.spinner("🤖 Rotating invoice... "):
+            detect(upload_file.replace("original","bg_sub"))
+
+        with st.spinner("🤖 Detecting texts... "):
+            remove_bg(upload_file.replace("original","bg_sub"))
+
+        with st.spinner("🤖 Recoginizing texts... "):
+            recoginize("data/demo/text_detection/data.json")
+
+        # image = draw(image, tables)
+        tab1, tab2, tab3 = st.tabs(
+            ["Tabular Data", "Table Visualization", "OCR Visualization"]
+        )
+
+        with tab1:
+            st.header("Tabular Information")
+            st.image(image)
+        st.balloons()
+
+
+if __name__ == "__main__":
+    app()
