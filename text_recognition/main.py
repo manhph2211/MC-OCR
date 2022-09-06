@@ -35,8 +35,6 @@ def infer_one_image():
     with open(path_to_json_file) as data_file:
         data = json.load(data_file)
         image_dir, file = list(data.items())[0]
-        # print(image_dir)
-        # print(file)
         n_boxes = len(file)
 
         # Preprocess the image
@@ -57,8 +55,8 @@ def infer_one_image():
             prediction = detector.predict(img_cropped)
             
             # Match the result with the field in JSON file
-            file[box]['text'] = str(prediction)
-    return file
+            data['../../data/val_images_after_semantic/mcocr_val_145114anqqj.jpg'][box]['text'] = str(prediction)
+    return data
 
 
 demo = infer_one_image()
