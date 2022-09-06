@@ -19,6 +19,7 @@ LABEL2ID = {
     "OTHER":        4
 }
 
+
 def compute_iou(box1, box2):
     box1 = [box1[1][0], box1[1][1], box1[0][0], box1[0][1]]
     box2 = [box2[0], box2[1], box2[0] + box2[2], box2[1] + box2[3]]
@@ -67,12 +68,12 @@ def create_data_annotation(json_path='../data/prediction.json',
         for key, ubox in enumerate(data[image_name]):
             for id, label in enumerate(anno_labels):
                 box = json.loads(labels['anno_polygons'][rowid].replace('\'', '\"'))[id]['bbox']
-                if compute_iou(ubox['crop'], box) > 0.3:
+                if compute_iou(ubox['crop'], box) > 0.35:
                     data[image_name][key]['label'] = label
             if data[image_name][key].get('label', -1) == -1:
                 data[image_name][key]['label'] = 'OTHER'
 
-    with open(save_path, 'w') as f:
+    with open(save_path, 'w', encoding='utf8') as f:
         json.dump(data, f)
 
 
