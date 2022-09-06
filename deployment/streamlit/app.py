@@ -28,6 +28,7 @@ def app():
         image = cv2.imdecode(image, 1)
         # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         cv2.imwrite(filename, image)
+        st.image(image)
 
         with st.spinner("🤖 Removing background... "):
             remove_bg(filename)
@@ -43,9 +44,7 @@ def app():
 
         with st.spinner("🤖 Recoginizing texts... "):
             recoginize("data/demo/text_detection/data.json")
-        st.image(image)
 
-        # image = draw(image, tables)
         tab1, tab2, tab3 = st.tabs(
             ["PREPROCESS", "OCR", "KIE"]
         )
