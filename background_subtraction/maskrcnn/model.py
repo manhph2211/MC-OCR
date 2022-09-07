@@ -1,7 +1,7 @@
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor
-import config
+from background_subtraction.maskrcnn import config
 
       
 def get_instance_segmentation_model(num_classes):

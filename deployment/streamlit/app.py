@@ -1,47 +1,75 @@
-import streamlit as st
-import numpy as np
-from PIL import Image
-import requests
-import base64
 import cv2
+import numpy as np
+import streamlit as st
+import sys
+sys.path.append(".")
+import os
+from background_subtraction.maskrcnn.save_img import remove_bg 
+from text_detection.craft.main import detect   
+from text_recognition.main import recognize
+from key_info_extraction.tools.inference import get_key, visualize
 
-max_width_str = f"max-width: 1200px;"
-st.markdown(
-    f"""
-    <style>
-    .reportview-container .main .block-container{{
-        {max_width_str}
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
 
-st.markdown(
-    "<h1 style='text-align: center;'>Image Text Recognition Tool</h1>",
-    unsafe_allow_html=True,
-)
-st.markdown(
-    "<p style='text-align:center;'>Hanoi, 2021 by Sun Asterisk AI Team</p>",
-    unsafe_allow_html=True,
-)
+st.set_page_config(layout="wide", page_icon="🖱️", page_title="Interactive table app")
+st.title("👨‍💻 Invoice Key Information Extraction")
 
-st.markdown(
-    """
-            * Click the button to upload a image file.
-            * Wait for running
-"""
-)
 
-ip_addr = "192.168.1.187"
-url = "http://" + ip_addr + ":8085/predictions/ocr_model"
-uploaded_file = st.file_uploader("Upload Image", type=[".png", ".jpg", ".jpeg"])
-if uploaded_file is not None:
-    image = np.asarray(Image.open(uploaded_file))
-    img_str = cv2.imencode('.jpg', image)[1].tostring()  
-    b64_code = base64.b64encode(img_str) 
-    response = requests.post(url, files={'body': b64_code})
+def app():
+    upload_file = st.file_uploader(label="Pick a file", type=["png", "jpg", "jpeg"])
+    image = None
+    if upload_file is not None:
+        filename = upload_file.name
+        # filename = os.path.join("data/demo/original",filename)
+        filetype = upload_file.type
+        filebyte = bytearray(upload_file.read())
 
-    st.image(image)
-    if response.status_code == 200:
-        st.markdown('***Predicted result***: {}'.format(response.text))
+        # cvt byte to image
+        image = np.asarray(filebyte, dtype=np.uint8)
+        image = cv2.imdecode(image, 1)
+        # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        cv2.imwrite(filename, image)
+        # st.image(image)
+
+        with st.spinner("🤖 Removing background... "):
+            remove_bg(filename)
+            img_after_rm_bg = cv2.imread(os.path.join("data/demo/bg_sub",filename))
+            
+        with st.spinner("🤖 Detecting angle... "):
+            detect(filename.replace("original","bg_sub"))
+
+        with st.spinner("🤖 Rotating invoice... "):
+            detect(filename.replace("original","bg_sub"))
+
+        with st.spinner("🤖 Detecting texts... "):
+            remove_bg(filename.replace("original","bg_sub"))
+            img_after_rotate = cv2.imread(os.path.join("data/demo/rotation",filename))
+            img_after_detect =  cv2.imread(os.path.join("data/demo/text_detection",filename))
+
+        with st.spinner("🤖 Recognizing texts... "):
+            recognize("data/demo/text_detection/data.json")
+
+        with st.spinner("🤖 Exporting results... "):
+            get_key("data/demo/recognition/data.json")
+            results_img = visualize("data/demo/kie/results.json")
+
+        tab1, tab2, tab3 = st.tabs(
+            ["PREPROCESS", "OCR", "KIE"]
+        )
+
+        with tab1:
+            st.header("PREPROCESS")
+            st.image(image)
+
+        with tab2:
+            st.header("OCR")
+            st.image(image)
+
+        with tab3:
+            st.header("KIE")
+            st.image(image)
+
+        st.balloons()
+
+
+if __name__ == "__main__":
+    app()

@@ -13,17 +13,16 @@ import argparse
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
-
 from PIL import Image
 import os
 import json
 from collections import defaultdict
 import cv2
 import numpy as np
-import craft_utils
-import imgproc
-import file_utils
-from craft import CRAFT
+from text_detection.craft import craft_utils
+from text_detection.craft import imgproc
+from text_detection.craft import file_utils
+from text_detection.craft.craft import CRAFT
 
 
 from collections import OrderedDict
@@ -89,7 +88,7 @@ def test_net(net, image, text_threshold, link_threshold, low_text, cuda, poly, r
 #==================================================================================
 # load net
 net = CRAFT()     # initialize
-net.load_state_dict(copyStateDict(torch.load("ckpts/craft_mlt_25k.pth", map_location='cpu')))
+net.load_state_dict(copyStateDict(torch.load("text_detection/craft/ckpts/craft_mlt_25k.pth", map_location='cpu')))
 net.eval()
 
 
@@ -109,8 +108,8 @@ def saveResult(img_file, img, boxes, dirname, verticals=None, texts=None):
         filename, file_ext = os.path.splitext(os.path.basename(img_file))
 
         # result directory
-        res_file = os.path.join(dirname, "res_" + filename + '.txt')
-        res_img_file = os.path.join(dirname, "res_" + filename + '.jpg')
+        res_file = os.path.join(dirname, filename + '.txt')
+        res_img_file = os.path.join(dirname, filename + '.jpg')
 
         if not os.path.isdir(dirname):
             os.mkdir(dirname)
@@ -137,15 +136,15 @@ def detect(img_path):
     bboxes, polys, score_text = test_net(net, image, text_threshold=0.7, link_threshold=0.4, low_text=0.4, cuda=False, poly=False, refine_net=None)
     # save score text
     filename, file_ext = os.path.splitext(os.path.basename(img_path))
-    file_utils.saveResult(img_path, image[:,:,::-1], polys, dirname="../../data/demo/text_detection")
+    file_utils.saveResult(img_path, image[:,:,::-1], polys, dirname="data/demo/text_detection")
 
     tmp = defaultdict(list)
     if True:
-        file_txt = os.path.join("../../data/demo/text_detection/"+img_path.replace(".jpg",".txt").split("/")[-1])
+        file_txt = os.path.join("data/demo/text_detection/"+img_path.replace(".jpg",".txt").split("/")[-1])
         
         # keys_image = "_".join(file_txt.split('_')[:3])
         path_file_txt = file_txt#os.path.join(path_file,file_txt)
-
+        print(path_file_txt)
         with open(path_file_txt, 'r') as f:
             for line in f:
                 data = list(map(int, line.split(',')))
@@ -156,9 +155,9 @@ def detect(img_path):
                 tmp[img_path].append({'crop': [pt1, pt2], 'text': ""})
             
     tmp = dict(tmp)
-    json.dump(tmp, open('C:\\Users\\manhph5\\Desktop\\RIVF2021-MC-OCR\\data\\demo\\text_detection\\data.json', 'w', encoding='utf8'), indent=4, ensure_ascii=False)
+    json.dump(tmp, open('data/demo/text_detection/data.json', 'w', encoding='utf8'), indent=4, ensure_ascii=False)
 
 
 if __name__ == "__main__":
-    detect("../../data/demo/bg_sub/mcocr_val_145114aszbc.jpg")
+    detect("data/demo/bg_sub/mcocr_val_145114aszbc.jpg")
 

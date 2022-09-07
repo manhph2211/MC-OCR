@@ -1,18 +1,18 @@
 import json
-from vietocr.preprocessing import adaptive_threshold_gaussian, noise_removal
-from vietocr.vietocr.tool.config import Cfg
-from vietocr.vietocr.tool.predictor import Predictor
+from text_recognition.vietocr.preprocessing import adaptive_threshold_gaussian, noise_removal
+from text_recognition.vietocr.vietocr.tool.config import Cfg
+from text_recognition.vietocr.vietocr.tool.predictor import Predictor
 
 
 # Load Config for model
 config = Cfg.load_config_from_name('vgg_transformer')
 # Load weights. REMEMBER TO RESET WEIGHT PATH
-config['weights'] = 'vietocr/ckpts/transformerocr.pth'
+config['weights'] = 'text_recognition/vietocr/ckpts/transformerocr.pth'
 config['device'] = 'cpu'
 detector = Predictor(config)
 
 
-def infer_one_image(path_to_json_file = '../data/demo/text_detection/data.json'):
+def recognize(path_to_json_file = 'data/demo/text_detection/data.json'):
     # Define detector
     with open(path_to_json_file) as data_file:
         data = json.load(data_file)
@@ -21,7 +21,7 @@ def infer_one_image(path_to_json_file = '../data/demo/text_detection/data.json')
         n_boxes = len(file)
 
         # Preprocess the image
-        img = noise_removal(adaptive_threshold_gaussian(path_to_image[3:]))
+        img = noise_removal(adaptive_threshold_gaussian(path_to_image))
 
         # Loop through the boxes:
         for box in range(n_boxes):
@@ -41,8 +41,8 @@ def infer_one_image(path_to_json_file = '../data/demo/text_detection/data.json')
             data[image_dir][box]['text'] = str(prediction)
 
 
-    with open('C:\\Users\\manhph5\\Desktop\\RIVF2021-MC-OCR\\data\\demo\\text_recognition\\data.json', 'w') as fp:
+    with open('data/demo/text_recognition/data.json', 'w') as fp:
         json.dump(data, fp, indent=2)
 
 if __name__ == "__main__":
-    infer_one_image()
+    recognize()
