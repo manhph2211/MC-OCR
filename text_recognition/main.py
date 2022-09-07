@@ -12,7 +12,7 @@ config['device'] = 'cpu'
 detector = Predictor(config)
 
 
-def recoginize(path_to_json_file = 'data/demo/text_detection/data.json'):
+def recognize(path_to_json_file = 'data/demo/text_detection/data.json'):
     # Define detector
     with open(path_to_json_file) as data_file:
         data = json.load(data_file)
@@ -45,4 +45,4 @@ def recoginize(path_to_json_file = 'data/demo/text_detection/data.json'):
         json.dump(data, fp, indent=2)
 
 if __name__ == "__main__":
-    recoginize()
+    recognize()

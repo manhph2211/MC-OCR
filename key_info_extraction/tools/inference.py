@@ -8,7 +8,7 @@ from key_info_extraction.models.phobert_gcn import BERTxGCN
 
 
 model = SageNet(768)
-model.load_state_dict(torch.load("best_epoch2.pth"))
+model.load_state_dict(torch.load("key_info_extraction/ckpts/best_epoch2.pth"))
 
 def decode(i):
     LABEL2ID = {
@@ -34,7 +34,7 @@ def get_key(json_path):
     for i in range(len(json_data[key])):
         json_data[key][i]['label'] = decode(int(pred[i]))
 
-    with open(json_path, 'w', encoding='utf') as f:
+    with open("data/demo/kie/results.json", 'w', encoding='utf') as f:
         json.dump(json_data, f)
 
 
@@ -54,7 +54,8 @@ def visualize(json_path):
                             0.4, (255, 0, 0), 1, cv2.LINE_AA)
               
     cv2.imwrite("data/demo/kie/result.jpg", image)
-    cv2.imshow(image,"Result")
+    # cv2.imshow(image,"Result")
+    return image
 
 
 if __name__ == '__main__':
