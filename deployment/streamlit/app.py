@@ -52,8 +52,6 @@ def app():
             get_key("data/demo/recognition/data.json")
             results_img = visualize("data/demo/kie/results.json")
 
-
-
         tab1, tab2, tab3 = st.tabs(
             ["PREPROCESS", "OCR", "KIE"]
         )
