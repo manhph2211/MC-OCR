@@ -7,7 +7,9 @@ import os
 from background_subtraction.maskrcnn.save_img import remove_bg 
 from text_detection.craft.main import detect   
 from text_recognition.main import recognize
-from key_info_extraction.tools.inference import get_key, visualize
+#from key_info_extraction.tools.inference import get_key, visualize
+from key_info_extraction.utils import create_data_annotation
+from key_info_extraction.tools.inference import visualize
 
 
 st.set_page_config(layout="wide", page_icon="🖱️", page_title="Interactive table app")
@@ -43,14 +45,15 @@ def app():
         with st.spinner("🤖 Detecting texts... "):
             remove_bg(filename.replace("original","bg_sub"))
             img_after_rotate = cv2.imread(os.path.join("data/demo/rotation",filename))
-            img_after_detect =  cv2.imread(os.path.join("data/demo/text_detection",filename))
+            img_after_detect = cv2.imread(os.path.join("data/demo/text_detection",filename))
 
         with st.spinner("🤖 Recognizing texts... "):
             recognize("data/demo/text_detection/data.json")
 
         with st.spinner("🤖 Exporting results... "):
-            get_key("data/demo/recognition/data.json")
-            results_img = visualize("data/demo/kie/results.json")
+            create_data_annotation()
+            result_img = visualize("data/demo/kie/data.json")
+            # get_key("data/demo/recognition/data.json")
 
         tab1, tab2, tab3 = st.tabs(
             ["PREPROCESS", "OCR", "KIE"]
@@ -58,15 +61,15 @@ def app():
 
         with tab1:
             st.header("PREPROCESS")
-            st.image(image)
+            st.image(img_after_rotate)
 
         with tab2:
             st.header("OCR")
-            st.image(image)
+            st.image(img_after_detect)
 
         with tab3:
             st.header("KIE")
-            st.image(image)
+            st.image(result_img)
 
         st.balloons()
 

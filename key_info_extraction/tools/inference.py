@@ -1,15 +1,10 @@
 import json
 import torch
 import cv2
-from key_info_extraction.models.phobert_sage import SageNet
-from key_info_extraction.datasets import Receipt
-from key_info_extraction.models.phobert_gcn import BERTxGCN
+# from key_info_extraction.datasets import Receipt
 
 
-
-model = SageNet(768)
-model.load_state_dict(torch.load("key_info_extraction/ckpts/best_epoch2.pth"))
-
+model = []
 def decode(i):
     LABEL2ID = {
         0: "SELLER"     ,

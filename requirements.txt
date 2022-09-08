@@ -17,12 +17,6 @@ click==8.0.4
 colorama==0.4.5
 commonmark==0.9.1
 contextlib2==21.6.0
-# contextvars==2.4
-# cycler==0.11.0
-# Cython
-# dataclasses==0.8
-# decorator==4.4.2
-# defusedxml==0.7.1
 einops==0.4.1
 entrypoints==0.4
 fastapi==0.82.0
@@ -73,7 +67,7 @@ prometheus-client==0.14.1
 prompt-toolkit==3.0.31
 protobuf==3.19.4
 pyarrow==6.0.1
-pycocotools
+pycocotools-windows
 pycparser==2.21
 pydantic==1.9.2
 pydeck==0.6.2
@@ -86,8 +80,6 @@ python-dateutil==2.8.2
 pytz==2022.2.1
 pytz-deprecation-shim==0.1.0.post0
 PyWavelets==1.1.1
-# pywin32==304
-# pywinpty==1.1.6
 PyYAML==6.0
 requests==2.27.1
 scikit-image==0.17.2
@@ -95,7 +87,5 @@ scikit-learn==0.24.2
 scipy==1.5.4
 streamlit
 torch==1.10.2
-torch-geometric==2.0.3
 torchvision==0.11.3
 tqdm==4.64.0
-

@@ -49,15 +49,15 @@ def compute_iou(box1, box2):
     return iou
 
 
-def create_data_annotation(json_path='../data/prediction.json',
-                           label_path='../data/mcocr_public_train_test_shared_data/mcocr_train_data/mcocr_train_df.csv',
-                           save_path='../data/labeled_predict.json'):
+def create_data_annotation(json_path='data/demo/text_recognition/data.json',
+                           label_path='data/mcocr_public_train_test_shared_data/mcocr_train_data/mcocr_train_df.csv',
+                           save_path='data/demo/kie/data.json'):
     labels = pd.read_csv(label_path)
     with open(json_path, 'rb') as f:
         data = json.load(f)
 
     for rowid in tqdm(labels.index):
-        image_name = labels['img_id'][rowid].split('.')[0]
+        image_name = labels['img_id'][rowid].split('.')[0] + '.jpg'
         if image_name not in data.keys():
             continue
         try:
@@ -68,7 +68,7 @@ def create_data_annotation(json_path='../data/prediction.json',
         for key, ubox in enumerate(data[image_name]):
             for id, label in enumerate(anno_labels):
                 box = json.loads(labels['anno_polygons'][rowid].replace('\'', '\"'))[id]['bbox']
-                if compute_iou(ubox['crop'], box) > 0.35:
+                if compute_iou(ubox['crop'], box) > 0.1:
                     data[image_name][key]['label'] = label
             if data[image_name][key].get('label', -1) == -1:
                 data[image_name][key]['label'] = 'OTHER'
@@ -79,6 +79,6 @@ def create_data_annotation(json_path='../data/prediction.json',
 
 if __name__ == '__main__':
     create_data_annotation()
-    with open('../data/labeled_predict.json', 'r') as f:
+    with open('data/demo/kie/data.json', 'r') as f:
         data = json.load(f)
     print(data)
