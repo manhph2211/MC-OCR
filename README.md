@@ -16,7 +16,7 @@ More about Graphsage model, this is one of the popular graph-based model that ca
 
 # Usage
 
-You can easily run the project by running the below commands, but note that you already had docker in your computer. I 
+You can easily run the project by running the below commands, but note that you already had docker in your computer:
 
 ```
 git clone https://github.com/manhph2211/MC-OCR.git
