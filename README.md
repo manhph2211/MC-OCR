@@ -10,7 +10,8 @@ The beblow image is the main pipeline of ours, which includes background subtrac
 
 About the dataset, we utilized [MC-OCR 2021](https://www.rivf2021-mc-ocr.vietnlp.com/). In general, the training set has 1155 images and the corresponding key fields, texts as the labels. Especially, this dataset is quite complex when having various backgrouds, as well as low quality images ... So EDA and proprcessing task are required to get good model performance!
 
-More about Graphsage model, this is one of the popular graph-based model that can be used to handle node classification problem and in this case, node as the text box. In detail, Graphsage can be shortly described as ...
+More about Graphsage model, this is one of the popular graph-based model that can be used to handle node classification problem and in this case, node as the text box. In detail, Graphsage can be shortly described as in the original paper LOL it treats the task as the node classification where node embedding is taken from text box using pretrained linguitic model and additional coordinate infomation. The embedding would be fed in to a graph and the special thing is how much the current node is related to the `k` neibor nodes. See the image below and the corresponding paper:
+
 ![image](https://user-images.githubusercontent.com/61444616/189104372-7f5c0ade-7f14-4532-813e-7d1a1ba4f9e1.png)
 
 
@@ -20,6 +21,7 @@ You can easily run the project by running the below commands, but note that you 
 
 ```
 git clone https://github.com/manhph2211/MC-OCR.git
+cd MC-OCR
 docker build -t "app" .
 docker run app
 ```
