@@ -10,10 +10,9 @@ The beblow image is the main pipeline of ours, which includes background subtrac
 
 About the dataset, we utilized [MC-OCR 2021](https://www.rivf2021-mc-ocr.vietnlp.com/). In general, the training set has 1155 images and the corresponding key fields, texts as the labels. Especially, this dataset is quite complex when having various backgrouds, as well as low quality images ... So EDA and proprcessing task are required to get good model performance!
 
-More about Graphsage model, this is one of the popular graph-based model that can be used to handle node classification problem and in this case, node as the text box. In detail, Graphsage can be shortly described as in the original paper LOL it treats the task as the node classification where node embedding is taken from text box using pretrained linguitic model and additional coordinate infomation. The embedding would be fed in to a graph nn and the special thing is how much the current node is related to the `k` neibor nodes. See the image below and the corresponding paper:
+More about Graphsage model, this is an improvement version of the original graph neural network which not only laverages the node attribute infomation from adjust nodes but also generates a representation for a new data which has not ever been seen previously. In detail, firstly, the graph is splitted into `k` levels based on the distance from the current node. Then, feature of this node is updated by summarizing the embedding of its neighbors, we used `mean` aggregated operator for this step. Excuting this way multiple times helping the information to propagate back from the furthest level. In our deployed model, we stacked consecutively `5` graphsage layers with relu activation. A simple fully connected layer is used on the top of our model to predict a probabilistic vector for key classification. The updating processing as well as node classification is illustrated as the following image:
 
 ![image](https://user-images.githubusercontent.com/61444616/189104372-7f5c0ade-7f14-4532-813e-7d1a1ba4f9e1.png)
-
 
 # Usage
 
